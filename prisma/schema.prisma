@@ -1,0 +1,71 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+model User {
+  id         String    @id @default(uuid())
+  name       String
+  email      String    @unique
+  password   String
+  birth_date String?
+  CPF        String    @unique
+  avatar     String?
+  phone      String
+  request    Request[]
+  
+  @@map("Users")
+}
+
+model Request {
+  id               String  @id @unique @default(uuid())
+  status           String
+  delivery_address Json
+  delivered        Boolean @default(false)
+  phone            String
+  userId           String
+  Subtotal         Int
+  discount         Int
+  delivery         Int
+
+  @@map("Requests")
+  User User @relation(fields: [userId], references: [id])
+}
+
+model Product {
+  id          String   @id @unique @default(uuid())
+  name        String
+  price       Float
+  discount    Int
+  description String
+  photograph  String[]
+  type        String
+  Farmer      Farmer?  @relation(fields: [farmerId], references: [id])
+  farmerId    String?
+
+  @@map("Products")
+}
+
+model Farmer {
+  id         String    @id @unique @default(uuid())
+  name       String
+  email      String    @unique
+  password   String
+  birth_date String?
+  CPF        String    @unique
+  avatar     String?
+  phone      String
+  CEP        String
+  Street     String
+  number     Int
+  product    Product[]
+
+  @@map("Farmers")
+}
