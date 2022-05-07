@@ -4,7 +4,6 @@ import { prismaClient } from '../../database/prismaClient';
 export class DeleteUserController {
   async handle(req: Request, res: Response) {
     const idUser = req.params.id;
-    console.log(idUser);
     try {
       const deleteUser = await prismaClient.user.delete({
         where: {

@@ -9,7 +9,7 @@ export class SearchProductController {
 
       let result = search.map(product => {
         if (product.name.search('banana')==0) {
-          console.log(product);
+          //console.log(product);
           return product
         }
     });

@@ -1,0 +1,201 @@
+{
+  "openapi":"3.0.0",
+    "info": {
+      "title":"Leafshop backend",
+      "description":"Esse sistema tem como objetivo o gerenciamento de backend do Leafshop."
+    },
+    "contact": {
+      "url": "weslleycz.github.io",
+      "email": "weslleysouza22@gmail.com"
+    },
+    "version": "1.0.1",
+      "paths":{
+        "/product": {
+          "post": {
+            "summary": "Cadastro de produtos",
+            "description":"Rota para cadastro de produtos",
+            "tags":["products"],
+            " requestBody":{
+              "content":{
+                "application/json":{
+                  "schemas":{
+                    "$ref":"#/components/schemas/CriarProduto"
+                  }
+                }
+              }
+            },
+            "example":{
+              "product":{
+                "value":{
+                  "name":"Pera",
+                  "price":34.4,
+                  "discount":23,
+                  "description":"Uma fruta muito gostosa",
+                  "photograph":["Base64"],
+                  "type":"fruta"
+                }
+              }
+            },
+            "responses":{
+              "200":{
+                "description": "OK",
+                "content":{
+                 "status":{
+                  "schema":{
+                    "type": "string"
+                  },
+                  "example": "created product"
+                 },
+                 "has_error":{
+                  "schema":{
+                    "type": "boolean"
+                  },
+                  "example": "false"
+                 }
+                }
+              }
+            }
+          }
+        },
+        "/search":{
+          "get": {
+            "summary": "Pesquisa de produtos",
+            "description":"Rota para pesquisa de produtos",
+            "tags":["products"],
+            " requestBody":{
+              "content":{
+                "application/json":{
+                  "schemas":{
+                    "$ref":"#/components/schemas/PesquisaProdutos",
+                    "examples":{
+                      "product":{
+                        "value":{
+                          "name":"banana maça"
+                        }
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          }
+        },
+        "/user":{
+          "post": {
+            "summary": "Criar usuário",
+            "description":"Rota para Criar usuário",
+            "tags":["user"],
+            " requestBody":{
+              "content":{
+                "application/json":{
+                  "schemas":{
+                    "$ref":"#/components/schemas/CriarUsuario",
+                    "examples":{
+                      "product":{
+                        "value":{
+                          "name":"leaf shop",
+                          "email":"shop@dddd.com",
+                          "password":"redrwe",
+                          "CPF":"812.229.600-95",
+                          "phone":"(97) 2961-2727"
+                        }
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          }
+        },
+        "/login":{
+          "get": {
+            "summary": "Login usuário",
+            "description":"Rota para usuário realizar login",
+            "tags":["user"],
+            " requestBody":{
+              "content":{
+                "application/json":{
+                  "schemas":{
+                    "$ref":"#/components/schemas/LoginUsuario",
+                    "examples":{
+                      "product":{
+                        "value":{
+                          "email":"elsa@lafd.io",
+                          "password":"rers3we"
+                        }
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      },
+      "components": {
+        "schemas": {
+          "CriarProduto":{
+            "type": "object",
+            "properties":{
+              "name":{
+                "type": "string"
+              },
+                "price":{
+                "type":"number"
+              },
+              "discount":{
+                "type":"number"
+              },
+              "description":{
+                "type":"string"
+              },
+              "photograph":{
+                "type":"String[]"
+              },
+              "type":{
+                "type":"string"
+              }
+            }
+          },
+          "PesquisaProdutos":{
+            "type": "object",
+            "properties":{
+              "name":{
+                "type":"string"
+              }
+            }
+          },
+          "CriarUsuario":{
+            "type": "object",
+            "properties":{
+              "name":{
+                "type":"string"
+              },
+              "email":{
+                "type":"string"
+              },
+              "password":{
+                "type":"string"
+              },
+              "CPF":{
+                "type":"string"
+              },
+              "phone":{
+                "type":"string"
+              }
+            }
+          },
+          "LoginUsuario":{
+            "type": "object",
+            "properties":{
+              "email":{
+                "type":"string"
+              },
+              "password":{
+                "type":"string"
+              }
+            }
+          }
+        }
+      }
+}

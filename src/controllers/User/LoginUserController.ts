@@ -31,10 +31,10 @@ export class LoginUserController {
           .json({ data: 'senha incorreta', has_error: true });
       }
       return res
-        .status(400)
+        .status(401)
         .json({ data: 'e-mail incorreto', has_error: true });
     } catch {
-      return res.status(400).json({ data: 'error', has_error: true });
+      return res.status(401).json({ data: 'error', has_error: true });
     }
   }
 }

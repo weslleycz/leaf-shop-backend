@@ -1519,7 +1519,7 @@
     "lodash" "^4.17.21"
     "validator" "^13.7.0"
 
-"express@^4.18.1":
+"express@^4.18.1", "express@>=4.0.0":
   "integrity" "sha512-zZBcOX9TfehHQhtupq57OF8lFZ3UZi08Y97dwFCkD8p9d/d2Y3M+ykKcwaMDEL+4qyUolgBDX6AblpR3fL212Q=="
   "resolved" "https://registry.npmjs.org/express/-/express-4.18.1.tgz"
   "version" "4.18.1"
@@ -4352,6 +4352,18 @@
     "swagger-converter" "^0.1.7"
     "traverse" "^0.6.6"
     "z-schema" "^3.15.4"
+
+"swagger-ui-dist@>=4.1.3":
+  "integrity" "sha512-Jo4oq4Nc7LaTYuvyo1VY3z3OWmGZCzZon8s92auKqpIuVCJo3t1Qih+S+Ph8lS5+ZbvF2ugqWvXk83boXQux1w=="
+  "resolved" "https://registry.npmjs.org/swagger-ui-dist/-/swagger-ui-dist-4.11.0.tgz"
+  "version" "4.11.0"
+
+"swagger-ui-express@^4.3.0":
+  "integrity" "sha512-jN46SEEe9EoXa3ZgZoKgnSF6z0w3tnM1yqhO4Y+Q4iZVc8JOQB960EZpIAz6rNROrDApVDwcMHR0mhlnc/5Omw=="
+  "resolved" "https://registry.npmjs.org/swagger-ui-express/-/swagger-ui-express-4.3.0.tgz"
+  "version" "4.3.0"
+  dependencies:
+    "swagger-ui-dist" ">=4.1.3"
 
 "swagger@^0.7.5":
   "integrity" "sha1-O+buPTksOwBvx6m1stYMfoNIYP0="
