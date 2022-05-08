@@ -8,8 +8,7 @@ export class SearchProductController {
       const search = await prismaClient.product.findMany();
 
       let result = search.map(product => {
-        if (product.name.search('banana')==0) {
-          //console.log(product);
+        if (product.name.search(name)==0) {
           return product
         }
     });

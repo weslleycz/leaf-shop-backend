@@ -1,17 +1,17 @@
 import { Request, Response } from 'express';
 import { prismaClient } from '../../database/prismaClient';
 
-export class DeleteProductController {
+export class DeleteFarmerController{
   async handle(req: Request, res: Response) {
-    const idProduct = req.params.id;
+    const idFarmer = req.params.id;
     try{
-      const deleteProduct = await prismaClient.product.delete({
+      const deleteFarmer  = await prismaClient.farmer.delete({
         where: {
-          id:idProduct
+          id:idFarmer
         },
       });
-      return res.json({ status: 'product delete', has_error: false });
-    }catch {
+      return res.json({ status: 'farmer delete', has_error: false });
+    }catch{
       return res.status(400).json({ data: 'error', has_error: true });
     }
   }

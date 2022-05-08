@@ -4,13 +4,15 @@ import { prismaClient } from '../../database/prismaClient';
 export class CreateProductController {
   async handle(req: Request, res: Response) {
     const dataProduct = req.body;
+    const idFarmer = req.params.idFarmer;
 
     dataProduct.name = dataProduct.name.toLowerCase();
 
     try {
       const product = await prismaClient.product.create({
         data: {
-          ...dataProduct,
+          farmerId:idFarmer,
+          ...dataProduct
         },
       });
       return res.json({ status: 'created product', has_error: false });

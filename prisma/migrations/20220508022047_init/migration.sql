@@ -5,8 +5,9 @@ CREATE TABLE "Users" (
     "email" TEXT NOT NULL,
     "password" TEXT NOT NULL,
     "birth_date" TEXT,
-    "CPF" TEXT NOT NULL,
+    "CPF_number" TEXT NOT NULL,
     "avatar" TEXT,
+    "Addresses" JSONB NOT NULL,
     "phone" TEXT NOT NULL,
 
     CONSTRAINT "Users_pkey" PRIMARY KEY ("id")
@@ -48,12 +49,8 @@ CREATE TABLE "Farmers" (
     "email" TEXT NOT NULL,
     "password" TEXT NOT NULL,
     "birth_date" TEXT,
-    "CPF" TEXT NOT NULL,
+    "CPF_number" TEXT NOT NULL,
     "avatar" TEXT,
-    "phone" TEXT NOT NULL,
-    "CEP" TEXT NOT NULL,
-    "Street" TEXT NOT NULL,
-    "number" INTEGER NOT NULL,
 
     CONSTRAINT "Farmers_pkey" PRIMARY KEY ("id")
 );
@@ -62,7 +59,7 @@ CREATE TABLE "Farmers" (
 CREATE UNIQUE INDEX "Users_email_key" ON "Users"("email");
 
 -- CreateIndex
-CREATE UNIQUE INDEX "Users_CPF_key" ON "Users"("CPF");
+CREATE UNIQUE INDEX "Users_CPF_number_key" ON "Users"("CPF_number");
 
 -- CreateIndex
 CREATE UNIQUE INDEX "Requests_id_key" ON "Requests"("id");
@@ -77,7 +74,7 @@ CREATE UNIQUE INDEX "Farmers_id_key" ON "Farmers"("id");
 CREATE UNIQUE INDEX "Farmers_email_key" ON "Farmers"("email");
 
 -- CreateIndex
-CREATE UNIQUE INDEX "Farmers_CPF_key" ON "Farmers"("CPF");
+CREATE UNIQUE INDEX "Farmers_CPF_number_key" ON "Farmers"("CPF_number");
 
 -- AddForeignKey
 ALTER TABLE "Requests" ADD CONSTRAINT "Requests_userId_fkey" FOREIGN KEY ("userId") REFERENCES "Users"("id") ON DELETE RESTRICT ON UPDATE CASCADE;

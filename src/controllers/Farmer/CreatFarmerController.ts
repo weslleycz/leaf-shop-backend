@@ -1,29 +1,30 @@
 import { Request, Response } from 'express';
 import * as EmailValidator from 'email-validator';
 import { prismaClient } from '../../database/prismaClient';
-import { cpf} from 'cpf-cnpj-validator';
+import { cpf} from 'cpf-cnpj-validator'
 
 const crypto = require('crypto');
 
-export class CreatUserController {
+export class CreatFarmerController {
   async handle(req: Request, res: Response) {
-    const dataUser = req.body;
+    const dataFarmer = req.body;
     const passwordTemp = req.body.password.toString();
     const cpfValidation = req.body.CPF_number;
 
     const mykey = crypto.createCipher('aes-128-cbc', passwordTemp);
     let mystr = mykey.update('abc', 'utf8', 'hex');
     mystr += mykey.final('hex');
-    dataUser.password = mystr;
+    dataFarmer.password = mystr;
 
     try {
       if (EmailValidator.validate(req.body.email) == true) {
         if (cpf.isValid(cpfValidation)== true) {
-          const user = await prismaClient.user.create({
+          const farmer = await prismaClient.farmer.create({
             data: {
-              ...dataUser,
+              ...dataFarmer
             },
           });
+          console.log(farmer);
           return res.json({ status: 'create user', has_error: false });
         }else{
           return res.json({ status: 'CPF is not valid', has_error: false });

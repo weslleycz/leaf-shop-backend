@@ -1,7 +1,7 @@
 import { Request, Response } from 'express';
 import { prismaClient } from '../../database/prismaClient';
 
-export class EditUser {
+export class EditUserController {
   async handle(req: Request, res: Response) {
     const idUser = req.params.id;
 
