@@ -11,6 +11,7 @@ import {CreatFarmerController} from './controllers/Farmer/CreatFarmerController'
 import {EditProductController} from './controllers/Product/EditProductController';
 import {SelectProductController} from './controllers/Product/SelectProductController';
 import {DeleteFarmerController} from './controllers/Farmer/DeleteFarmerController';
+import {EditFarmerController} from './controllers/Farmer/EditFarmerController';
 
 const router = Router();
 const createPrduct = new CreateProductController();
@@ -25,6 +26,7 @@ const createFarmer = new CreatFarmerController();
 const editProduct = new EditProductController();
 const setect = new SelectProductController();
 const deleteFarmer = new DeleteFarmerController();
+const editFarmer = new EditFarmerController();
 
 // rota de produto
 router.post('/product/:idFarmer', createPrduct.handle);
@@ -43,5 +45,6 @@ router.put('/user/list', listUser.handle);
 // rota de farmer
 router.post('/farmer',createFarmer.handle);
 router.delete('/farmer/:id',deleteFarmer.handle);
+router.post('/farmer/:id',editFarmer.handle);
 
 export { router };
