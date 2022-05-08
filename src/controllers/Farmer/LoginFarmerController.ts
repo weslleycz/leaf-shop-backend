@@ -3,7 +3,7 @@ import { prismaClient } from '../../database/prismaClient';
 
 const crypto = require('crypto');
 
-export class LoginUserController {
+export class LoginFarmerController {
   async handle(req: Request, res: Response) {
     const dataLogin = req.body;
     const passwordTemp = req.body.password.toString();
@@ -14,16 +14,16 @@ export class LoginUserController {
     dataLogin.password = str;
 
     try {
-      const user = await prismaClient.user.findUnique({
+      const farmer = await prismaClient.farmer.findUnique({
         where: {
           email: dataLogin.email,
         },
       });
 
-      if (user != null) {
-        if (user.password == dataLogin.password) {
+      if (farmer != null) {
+        if (farmer.password == dataLogin.password) {
           return res.json({
-            data: { token: user.id, has_error: false },
+            data: { token: farmer.id, has_error: false },
           });
         }
         return res
