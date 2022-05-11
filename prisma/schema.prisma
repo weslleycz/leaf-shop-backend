@@ -11,59 +11,63 @@ datasource db {
 }
 
 model User {
-  id         String    @id @default(uuid())
+  id         String     @id @default(uuid())
   name       String
-  email      String    @unique
+  email      String     @unique
   password   String
   birth_date String
-  CPF_number String    @unique
+  CPF_number String     @unique
   avatar     String?
-  Addresses  Json
+  Addresses  Json[]
   phone      String
-  request    Request[]
+  purchase   Purchase[]
 
   @@map("Users")
 }
 
-model Request {
-  id               String  @id @unique @default(uuid())
-  status           String
+model Purchase {
+  id               String       @id @unique @default(uuid())
+  date             DateTime     @default(now())
+  status           String       @default("Preparando o Pedido")
+  delivered        Boolean      @default(false)
   delivery_address Json
-  delivered        Boolean @default(false)
   phone            String
+  total            Float
   userId           String
-  Subtotal         Int
-  discount         Int
-  delivery         Int
+  cooperativeId    String
+  Products         Json[]
+  User             User         @relation(fields: [userId], references: [id])
+  Cooperative      Cooperative? @relation(fields: [cooperativeId], references: [id])
 
-  User User @relation(fields: [userId], references: [id])
-  @@map("Requests")
+  @@map("Purchases")
 }
 
 model Product {
-  id          String   @id @unique @default(uuid())
-  name        String
-  price       Float
-  discount    Int
-  description String
-  photograph  String[]
-  type        String
-  Farmer      Farmer?  @relation(fields: [farmerId], references: [id])
-  farmerId    String?
+  id            String       @id @unique @default(uuid())
+  name          String
+  quantity      Int
+  price         Float
+  discount      Int
+  description   String
+  photograph    String[]
+  type          String
+  Cooperative   Cooperative? @relation(fields: [cooperativeId], references: [id])
+  cooperativeId String?
 
   @@map("Products")
 }
 
-model Farmer {
-  id         String    @id @default(uuid())
-  name       String
-  email      String    @unique
-  password   String
-  birth_date String
-  CPF_number String    @unique
-  avatar     String?
-  Addresses  Json
-  phone      String
-  product    Product[] 
-  @@map("Farmers")
+model Cooperative {
+  id            String     @id @default(uuid())
+  CNPJ_number   String     @unique
+  name          String
+  Addresses     Json[]
+  products      Product[]
+  purchase      Purchase[]
+  email         String     @unique
+  password      String
+  surrender     Int
+  minimum_value Float
+
+  @@map("Cooperatives")
 }

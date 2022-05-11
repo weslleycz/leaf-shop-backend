@@ -1,29 +1,28 @@
 import { Request, Response } from 'express';
 import { prismaClient } from '../../database/prismaClient';
-
 const crypto = require('crypto');
 
-export class LoginFarmerController {
+export class LoginCooperativeController {
   async handle(req: Request, res: Response) {
     const dataLogin = req.body;
     const passwordTemp = req.body.password.toString();
 
-    const key = crypto.createCipher('aes-128-cbc', passwordTemp);
-    let str = key.update('abc', 'utf8', 'hex');
-    str += key.final('hex');
-    dataLogin.password = str;
+    const securityKey = crypto.createCipher('aes-128-cbc', passwordTemp);
+    let  encryptionFormula = securityKey.update('abc', 'utf8', 'hex');
+    encryptionFormula += securityKey.final('hex');
+    dataLogin.password =  encryptionFormula;
 
     try {
-      const farmer = await prismaClient.farmer.findUnique({
+      const user = await prismaClient.cooperative.findUnique({
         where: {
           email: dataLogin.email,
         },
       });
 
-      if (farmer != null) {
-        if (farmer.password == dataLogin.password) {
+      if (user != null) {
+        if (user.password == dataLogin.password) {
           return res.json({
-            data: { token: farmer.id, has_error: false },
+            data: { token: user.id, has_error: false },
           });
         }
         return res

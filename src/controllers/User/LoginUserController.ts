@@ -8,10 +8,10 @@ export class LoginUserController {
     const dataLogin = req.body;
     const passwordTemp = req.body.password.toString();
 
-    const key = crypto.createCipher('aes-128-cbc', passwordTemp);
-    let str = key.update('abc', 'utf8', 'hex');
-    str += key.final('hex');
-    dataLogin.password = str;
+    const securityKey = crypto.createCipher('aes-128-cbc', passwordTemp);
+    let  encryptionFormula = securityKey.update('abc', 'utf8', 'hex');
+    encryptionFormula += securityKey.final('hex');
+    dataLogin.password =  encryptionFormula;
 
     try {
       const user = await prismaClient.user.findUnique({
