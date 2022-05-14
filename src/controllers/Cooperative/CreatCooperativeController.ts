@@ -18,7 +18,7 @@ export class CreatCooperativeController {
     
     try{
       if (EmailValidator.validate(req.body.email) == true) {
-        if (cnpj.isValid(cnpjValidation)== true){
+        if (cnpj.isValid(cnpjValidation) == true){
           const cooperative = await prismaClient.cooperative.create({
             data: {
               ...dataCooperative
