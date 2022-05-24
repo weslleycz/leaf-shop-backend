@@ -43,14 +43,16 @@ model Purchase {
 }
 
 model Product {
-  id            String       @id @unique @default(uuid())
-  name          String
-  quantity      Int
-  price         Float
-  discount      Int
-  description   String
-  photograph    String[]
-  type          String
+  id          String   @id @unique @default(uuid())
+  name        String
+  quantity    Int
+  price       Float
+  discount    Int
+  description String
+  photograph  String[]
+  type        String
+  code_bar    String?
+
   Cooperative   Cooperative? @relation(fields: [cooperativeId], references: [id])
   cooperativeId String?
 

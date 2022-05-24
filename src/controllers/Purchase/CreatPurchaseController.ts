@@ -8,16 +8,15 @@ export class CreatPurchaseController {
     const userId=req.params.userId;
     const cooperativeId= req.params.cooperativeId;
     try{
-
       for (let index = 0; index < Products.length; index++) {
-       let product = await prismaClient.product.findUnique({
+       let product = await prismaClient.product.update({
          where:{
            id:Products[index].id
          },
-         select:{
-           quantity:true
+         data:{
+           quantity:{ decrement: Products[index].quantity }
          }
-       })
+       }) 
       }
 
     const purchase = await prismaClient.purchase.create({
